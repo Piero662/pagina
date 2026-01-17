@@ -662,15 +662,42 @@ lineHeight: Math.min(window.innerWidth / 12, 70),
 
 }, 2000);
 
-
 function showHolaPage() {
     document.body.innerHTML = `
         <style>
             body {
                 margin: 0;
-                background: white;
+                background: linear-gradient(to bottom, #ffb3b3, #ffd6d6);
                 font-family: Arial, sans-serif;
-                overflow-y: auto;   /* ✅ PERMITE SCROLL */
+                overflow-y: auto;
+            }
+
+            /* 💖 CONTENEDOR DE CORAZONES */
+            .hearts-container {
+                position: fixed;
+                inset: 0;
+                pointer-events: none;
+                overflow: hidden;
+                z-index: 999;
+            }
+
+            .heart {
+                position: absolute;
+                bottom: -40px;
+                color: #ff3366;
+                animation: floatUp linear forwards;
+                user-select: none;
+            }
+
+            @keyframes floatUp {
+                from {
+                    transform: translateY(0);
+                    opacity: 1;
+                }
+                to {
+                    transform: translateY(-120vh);
+                    opacity: 0;
+                }
             }
 
             .gallery {
@@ -680,6 +707,8 @@ function showHolaPage() {
                 gap: 16px;
                 padding: 20px;
                 box-sizing: border-box;
+                position: relative;
+                z-index: 1;
             }
 
             .gallery img {
@@ -703,8 +732,13 @@ function showHolaPage() {
             }
         </style>
 
+        <!-- 💖 CORAZONES -->
+        <div class="hearts-container"></div>
+
+        <!-- 🖼️ GALERÍA -->
         <div class="gallery">
             <img src="img/pequena.jpg">
+            <img src="img/girasoles.DNG">
             <img src="img/hands.png">
             <img src="img/hands2.jpg">
             <img src="img/museo.jpg">
@@ -713,7 +747,29 @@ function showHolaPage() {
             <img src="img/corazon.jpg">
         </div>
     `;
+
+    // 💖 LLUVIA DE CORAZONES
+    const container = document.querySelector(".hearts-container");
+    const emojis = ["❤", "💖", "💕", "💗", "💘"];
+
+    setInterval(() => {
+        const heart = document.createElement("div");
+        heart.className = "heart";
+        heart.innerHTML = emojis[Math.floor(Math.random() * emojis.length)];
+
+        heart.style.left = Math.random() * window.innerWidth + "px";
+        const size = Math.random() * 20 + 14;
+        heart.style.fontSize = size + "px";
+
+        const duration = Math.random() * 3 + 2;
+        heart.style.animationDuration = duration + "s";
+
+        container.appendChild(heart);
+
+        setTimeout(() => heart.remove(), duration * 1000);
+    }, 300);
 }
+
 
 
         function Letter(char, x, y) {
@@ -1433,5 +1489,4 @@ animation: float ${dur}s ease-in infinite
 
 
 </html>
-
 
