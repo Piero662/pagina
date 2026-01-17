@@ -116,12 +116,12 @@
             position: absolute;
             color: #fff;
             width: 100%;
-            content: "Click Me!";
+            content: "Click si eres pinochita!";
             left: 0;
             bottom: 0;
             font-size: 50px;
             text-align: center;
-            transform: rotate(-20deg);
+            transform: rotate(-5deg);
             transform-origin: 0 0;
 
         }
@@ -593,6 +593,8 @@
   
 
     <script>
+        let giftClicked = false;
+
         var w = c.width = window.innerWidth,
             h = c.height = window.innerHeight,
             ctx = c.getContext('2d'),
@@ -657,10 +659,6 @@ lineHeight: Math.min(window.innerWidth / 12, 70),
     anim();
     ctx.font = opts.charSize + 'px Verdana';
 
-    // ⏳ después de 6 segundos → página blanca
-    setTimeout(() => {
-        showHolaPage();
-    }, 6000);
 
 }, 2000);
 
@@ -1337,14 +1335,23 @@ ctx.font = opts.charSize + 'px "Times New Roman", Times, serif';
             function openBox() {
                 if (step === 1) {
                     box.removeEventListener("click", openBox, false);
+                    setTimeout(() => {
+                        if (giftClicked) {
+                            showHolaPage();
+                        }
+                    }, 6000);
                 }
+                giftClicked = true; 
                 stepClass(step);
-                if (step === 3) {
-                }
+                
+
                 if (step === 4) {
-                    reveal();
+                    reveal();                    
+
                     return;
                 }
+
+
                 setTimeout(openBox, stepMinutes[step - 1]);
                 step++;
             }
@@ -1428,5 +1435,4 @@ animation: float ${dur}s ease-in infinite
 
 
 </html>
-
 
