@@ -633,7 +633,7 @@ lineHeight: Math.min(window.innerWidth / 12, 70),
                 fireworkShardAddedSize: 3,
                 gravity: .1,
                 upFlow: -.1,
-                letterContemplatingWaitTime: 1400,
+                letterContemplatingWaitTime: 3000,
                 balloonSpawnTime: 20,
                 balloonBaseInflateTime: 10,
                 balloonAddedInflateTime: 10,
@@ -1038,9 +1038,8 @@ this.lightAlphaColor = 'rgba(127,215,255,alp)';
 
             ctx.translate(-hw, -hh);
 
-            if (done)
-                for (var l = 0; l < letters.length; ++l)
-                    letters[l].reset();
+            if (done) return;
+
         }
 
         for (var i = 0; i < opts.strings.length; ++i) {
@@ -1435,6 +1434,4 @@ animation: float ${dur}s ease-in infinite
 
 
 </html>
-
-
 
